@@ -1301,6 +1301,10 @@ section {
     flex-wrap: wrap;
     gap: 1rem;
 }
+
+.menu-toggle {
+    display: none;
+}
 .table-wrapper {
     overflow-x: auto;
     background: rgba(255, 255, 255, 0.02);
