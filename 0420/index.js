@@ -13,15 +13,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fadeElements.forEach(el => observer.observe(el));
     
-    // 2. 네비게이션 링크를 위한 부드러운 스크롤 효과
+    // 2. 네비게이션 링크를 위한 부드러운 스크롤 효과 + 모바일 메뉴 닫기
+    const menuToggle = document.getElementById("mobile-menu");
+    const navLinks = document.querySelector(".nav-links");
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+            menuToggle.classList.toggle("active");
+        });
+    }
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
+            
+            // 모바일 메뉴가 열려있다면 닫기
+            if (navLinks.classList.contains("active")) {
+                navLinks.classList.remove("active");
+                menuToggle.classList.remove("active");
+            }
+
             const targetId = this.getAttribute('href').substring(1);
             const targetElem = document.getElementById(targetId);
             if (targetElem) {
-                targetElem.scrollIntoView({
-                    behavior: 'smooth'
+                const headerOffset = 80;
+                const elementPosition = targetElem.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
                 });
             }
         });
@@ -84,8 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 1500); // CSS transition 시간과 동일하게 설정
         }
         
-        // 5초 간격으로 실행
-        setInterval(nextSlide, 5000);
+        // 3초 간격으로 실행
+        setInterval(nextSlide, 3000);
     }
 });
 
@@ -132,12 +154,79 @@ function showAcademicDetail(id) {
     }
 }
 
+// 자격증 상세 모달 데이터
+const certData = {
+    'semicon': {
+        title: "반도체설비보전기능사",
+        icon: "fa-wrench",
+        info: "반도체 제조 공정의 핵심 장비인 노광, 식각, 증착, 이온주입 장비 등을 최상의 컨디션으로 유지하기 위한 전문 자격입니다. 설비의 기계적 메커니즘 분석, 유공압 제어, 전기회로 구성 및 트러블슈팅 능력을 검증합니다.",
+        industry: "삼성전자, SK하이닉스 등 반도체 제조사(Fab) 및 ASML, AMAT, TEL 등 글로벌 반도체 장비사의 메인터넌스 및 CS 엔지니어 직무에서 필수적으로 활용됩니다.",
+        tags: ["#설비보전", "#트러블슈팅", "#8대공정장비", "#유공압제어"]
+    },
+    'sw': {
+        title: "CSWA / CSWP (SOLIDWORKS)",
+        icon: "fa-cube",
+        info: "다쏘시스템에서 주관하는 글로벌 공인 국제 자격증으로, 3D CAD 소프트웨어인 솔리드웍스 활용 능력을 증명합니다. 파트 모델링, 복잡한 어셈블리 설계, 도면 생성 및 엔지니어링 분석 역량을 평가합니다.",
+        industry: "로봇 기구 설계, 반도체 장비 파츠 역설계, 자동차 및 정밀 기계 부품 설계 분야에서 광범위하게 활용됩니다. 특히 장비의 유지보수 시 부품 개선 및 커스텀 파츠 제작에 핵심적인 역할을 합니다.",
+        tags: ["#3D_CAD", "#기구설계", "#역설계", "#기계제도"]
+    },
+    'safety': {
+        title: "산업안전산업기사",
+        icon: "fa-shield-halved",
+        info: "산업 현장의 유해·위험 요인을 파악하고 안전 대책을 수립하는 전문 인력임을 증명합니다. 안전 규정 준수, 위험성 평가, 보호구 관리 및 비상 대응 시스템 구축 능력을 갖추고 있음을 나타냅니다.",
+        industry: "클린룸 내 화학 물질 및 고전압 설비를 다루는 반도체 라인에서 '안전 최우선' 원칙을 실현하는 데 필수적입니다. 모든 제조 기업의 안전관리자 선임 및 현장 엔지니어의 안전 역량으로 높게 평가받습니다.",
+        tags: ["#현장안전", "#위험성평가", "#안전관리", "#법규준수"]
+    }
+};
+
+function showCertDetail(id) {
+    const modal = document.getElementById("cert-modal");
+    const title = document.getElementById("cert-title");
+    const icon = document.getElementById("cert-icon");
+    const info = document.getElementById("cert-info");
+    const industry = document.getElementById("cert-industry");
+    const tagsContainer = document.getElementById("cert-tags");
+
+    if (certData[id]) {
+        title.innerText = certData[id].title;
+        icon.className = `fa-solid ${certData[id].icon}`;
+        info.innerText = certData[id].info;
+        industry.innerText = certData[id].industry;
+        
+        // 태그 초기화 및 추가
+        tagsContainer.innerHTML = '';
+        certData[id].tags.forEach(tag => {
+            const span = document.createElement('span');
+            span.className = 'tag accent';
+            span.innerText = tag;
+            tagsContainer.appendChild(span);
+        });
+
+        modal.style.display = "flex";
+        document.body.style.overflow = "hidden";
+    }
+}
+
+function closeCertModal() {
+    const modal = document.getElementById("cert-modal");
+    if (modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto";
+    }
+}
+
+// 전역 등록
+window.showCertDetail = showCertDetail;
+window.closeCertModal = closeCertModal;
+
+// 학업 로드맵 상세 모달 열기/닫기
 function closeAcademicModal() {
     const modal = document.getElementById("academic-modal");
     if (modal) {
         modal.style.display = "none";
     }
 }
+window.closeAcademicModal = closeAcademicModal;
 
 // 이미지 상세 모달 열기/닫기
 function openImageModal(src) {
