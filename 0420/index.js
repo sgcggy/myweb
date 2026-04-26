@@ -87,34 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // 5초 간격으로 실행
         setInterval(nextSlide, 5000);
     }
-
-    // 6. 성장 과정 버튼 호버 기능 (이미지 전환)
-    const growthBtns = document.querySelectorAll(".growth-btn");
-    const growthImg = document.getElementById("growth-main-img");
-    const growthDetailImg = document.getElementById("growth-detail-img");
-
-    const yearImages = {
-        '1': 'bg/year1.png',
-        '2': 'bg/year2.png',
-        '3': 'bg/year3.png'
-    };
-
-    growthBtns.forEach(btn => {
-        btn.addEventListener("mouseenter", () => {
-            const year = btn.getAttribute("data-year");
-            if (growthImg && growthDetailImg && yearImages[year]) {
-                growthDetailImg.src = yearImages[year];
-                growthImg.classList.add("fade-hide");
-                growthDetailImg.classList.remove("fade-hide");
-            }
-        });
-        btn.addEventListener("mouseleave", () => {
-            if (growthImg && growthDetailImg) {
-                growthImg.classList.remove("fade-hide");
-                growthDetailImg.classList.add("fade-hide");
-            }
-        });
-    });
 });
 
 // 부트캠프 타임라인 모달을 위한 데이터 로직
@@ -165,4 +137,57 @@ function closeAcademicModal() {
     if (modal) {
         modal.style.display = "none";
     }
+}
+
+// 이미지 상세 모달 열기/닫기
+function openImageModal(src) {
+    const modal = document.getElementById("image-modal");
+    const modalImg = document.getElementById("modal-img");
+    if (modal && modalImg) {
+        modalImg.src = src;
+        modal.style.display = "flex";
+        document.body.style.overflow = "hidden"; // 스크롤 방지
+    }
+}
+
+function closeImageModal() {
+    const modal = document.getElementById("image-modal");
+    if (modal) {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto"; // 스크롤 다시 허용
+    }
+}
+
+// 성장 과정 학년별 전환 함수 (개선된 크로스페이드 버전)
+function switchGrowthYear(index) {
+    const buttons = document.querySelectorAll(".growth-btn");
+    const mainImg = document.getElementById("growth-main-img");
+    const detailImg = document.getElementById("growth-detail-img");
+
+    // 이미 활성화된 버튼을 또 누르면 무시
+    if (buttons[index].classList.contains("active")) return;
+
+    // 버튼 활성화 상태 변경
+    buttons.forEach((btn, i) => {
+        btn.classList.toggle("active", i === index);
+    });
+
+    // 이미지 경로 설정
+    let imagePath = (index === 0) ? "bg/growth_path.jpg" : `bg/year${index}.png`;
+
+    // 크로스페이드 로직
+    // 1. 새 이미지를 뒤쪽(detailImg)에 로드
+    detailImg.src = imagePath;
+    
+    // 2. 이미지가 로드되면 실행 (캐시된 경우 즉시 실행될 수도 있음)
+    detailImg.onload = () => {
+        // 3. 앞쪽 이미지(mainImg)를 페이드 아웃
+        mainImg.style.opacity = "0";
+        
+        // 4. 페이드 아웃이 완료되면 이미지를 교체하고 다시 페이드 인
+        setTimeout(() => {
+            mainImg.src = imagePath;
+            mainImg.style.opacity = "1";
+        }, 300); // CSS transition 시간보다 약간 짧게
+    };
 }

@@ -17,13 +17,13 @@
             </div>
             <ul class="nav-links">
                 <li><a href="#home">홈</a></li>
+                <li><a href="#introduction">핵심 가치</a></li>
                 <li><a href="#growth">성장 과정</a></li>
                 <li><a href="#bootcamp">융합 과정</a></li>
                 <li><a href="#projects">프로젝트 쇼케이스</a></li>
                 <li><a href="#credentials">자격 및 역량</a></li>
                 <li><a href="#vision">비전</a></li>
-                <li><a href="#roadmap">로드맵</a></li>
-                <li><a href="board.html">자유게시판</a></li>
+                <li><a href="board.html" class="nav-board-btn"><i class="fa-solid fa-clipboard-list"></i> 자유게시판</a></li>
             </ul>
         </nav>
     </header>
@@ -44,30 +44,68 @@
                 <div class="slide" style="background-image: url('bg/wafer.png');"></div>
             </div>
             <div class="hero-content fade-in">
-                <div class="hero-label">Dongyang Mirae Univ x SK hynix</div>
+                <div class="hero-label">DONGYANG MIRAE UNIV X SK HYNIX</div>
                 <h1 class="section-title">
                     준비된 반도체 설비 전문가,<br>
-                    <span>기술 초격차를 주도하다</span>
+                    <span style="color: var(--sk-red);">기술 </span><span style="color: var(--sk-orange);">초격차를 주도하다</span>
                 </h1>
                 <p class="hero-desc">
                     로봇소프트웨어과의 하드웨어 제어 역량과 반도체 부트캠프의 공정 지식을 결합하여, SK하이닉스 유지보수(Maintenance) 직무에 즉시 투입 가능한 실무형 인재로 성장했습니다.
                 </p>
             </div>
         </section>
-        
-        <section id="growth">
-            <div class="growth-header fade-in">
-                <h2 class="section-title">성장 과정: <br><span>로봇 전문가를 향한 여정</span></h2>
-                <div class="growth-buttons">
-                    <button class="growth-btn" data-year="1">1학년 과정</button>
-                    <button class="growth-btn" data-year="2">2학년 과정</button>
-                    <button class="growth-btn" data-year="3">3학년 과정</button>
+
+        <!-- INTRODUCTION SECTION (New: Mission & Value) -->
+        <section id="introduction">
+            <div class="intro-container fade-in">
+                <div class="intro-header">
+                    <div class="hero-label">SK HYNIX TALENT ALIGNMENT</div>
+                    <h2 class="section-title">MISSION & VALUE: <br><span>SK하이닉스의 미래를 설계하는 패기</span></h2>
+                    <p class="section-desc">SK하이닉스의 <strong>VWBE</strong>와 <strong>SUPEX</strong> 정신을 기술 현장에서 실천하며, <br>장비 다운타임 제로화를 향해 집요하게 도전하는 메인터넌스 엔지니어 지망생 신광철입니다.</p>
+                </div>
+
+                <div class="intro-grid">
+                    <div class="intro-card">
+                        <div class="intro-icon"><i class="fa-solid fa-brain"></i></div>
+                        <div class="intro-content">
+                            <h4>VWBE: 지능형 기술 혁신</h4>
+                            <p>단순한 융합을 넘어 로봇 지능과 반도체 공정을 완벽히 동기화하여 **기술의 임계점**을 돌파하는 창의적 두뇌 활용의 정수를 보여줍니다.</p>
+                        </div>
+                    </div>
+                    <div class="intro-card">
+                        <div class="intro-icon"><i class="fa-solid fa-rocket"></i></div>
+                        <div class="intro-content">
+                            <h4>SUPEX: 한계를 넘는 초격차 도전</h4>
+                            <p>사고율 0%를 향한 <strong>무결점의 집념</strong>과 주행 안정성 96%를 상회하는 **압도적 정밀도(Super Excellent)**로 반도체 공정의 기술적 한계를 정복하고 새로운 표준을 제시합니다.</p>
+                        </div>
+                    </div>
+                    <div class="intro-card">
+                        <div class="intro-icon"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                        <div class="intro-content">
+                            <h4>패기: 불가능을 뚫는 압도적 집념</h4>
+                            <p>어떠한 극한의 다운타임 위기에서도 한계를 두지 않는 <strong>과감한 실행력</strong>으로 설비 가동률 100%를 향해 전진하는 강력한 에너지를 보유하고 있습니다.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card fade-in" id="growth-image-container" style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem;">
+        </section>
+
+        <section id="growth">
+            <div class="growth-header fade-in">
+                <h2 class="section-title">성장 로드맵: <br><span>로봇 전문가를 향한 여정</span></h2>
+                <div class="growth-buttons">
+                    <button class="growth-btn active" onclick="switchGrowthYear(0)">대학 과정</button>
+                    <button class="growth-btn" onclick="switchGrowthYear(1)">1학년 과정</button>
+                    <button class="growth-btn" onclick="switchGrowthYear(2)">2학년 과정</button>
+                    <button class="growth-btn" onclick="switchGrowthYear(3)">3학년 과정</button>
+                </div>
+            </div>
+
+            <div class="growth-content-wrapper fade-in">
                 <div class="growth-img-wrapper">
-                    <img id="growth-detail-img" class="growth-detail-img fade-hide" src="" alt="학년별 상세 과정">
-                    <img id="growth-main-img" src="bg/growth_path.jpg" alt="성장 과정 로드맵">
+                    <!-- Default: College Course Image (growth_path.jpg) -->
+                    <img src="bg/growth_path.jpg" alt="Growth Roadmap" id="growth-main-img">
+                    <img src="bg/growth_path.jpg" alt="Growth Detail" class="growth-detail-img fade-hide" id="growth-detail-img">
                 </div>
             </div>
         </section>
@@ -84,24 +122,30 @@
                 
                 <!-- Academic (Robot SW) -->
                 <div class="timeline-column left">
-                    <h3 class="column-title"><i class="fa-solid fa-code"></i> 로봇 SW 전공</h3>
+                    <h3 class="column-title"><i class="fa-solid fa-code"></i> 장비 제어 S/W 성과</h3>
                     <div class="timeline-card" data-id="python">
-                        <div class="card-step">1단계. 기초 제어</div>
-                        <h4>파이썬 프로그래밍</h4>
-                        <p>디지털 데이터 처리 및 장비 데이터 자동 분석 기본 역량</p>
-                        <div class="card-details">판다스(Pandas)와 시각화 툴을 활용하여 센서 및 공정 로그 데이터를 수집하고 이상 징후를 판별하는 자동화 스크립트를 구현했습니다. 이 역량은 장비 Parameter 분석을 획기적으로 단축시킵니다.</div>
+                        <div class="card-step">Data Analysis</div>
+                        <h4>예방 보전 알고리즘</h4>
+                        <p>장비 로그 기반 이상 탐지 모델 구현</p>
+                        <div class="card-details">
+                            <strong>[결과]</strong> 판다스를 활용해 <strong style="color:var(--sk-orange);">[O만 건]</strong>의 로그를 0.1초 내 분석, Alarm Limit를 자동 설정하여 **이상 징후 탐지율 [O]%** 달성 목표.
+                        </div>
                     </div>
                     <div class="timeline-card" data-id="plc">
-                        <div class="card-step">2단계. 현장 자동화</div>
-                        <h4>PLC 제어</h4>
-                        <p>래더 로직을 활용한 공정 장비 시퀀스 및 물류 제어</p>
-                        <div class="card-details">미쓰비시(Mitsubishi) 및 LS산전 PLC를 다루며 각종 센서 및 액추에이터의 래더 프로그래밍(Ladder Programming)을 수행했습니다. 장비 시퀀스의 최적화와 에러 검출 로직을 직접 세팅할 수 있습니다.</div>
+                        <div class="card-step">Automation</div>
+                        <h4>Safety Interlock 설계</h4>
+                        <p>PLC 기반 설비 가동 안전 무결성 확보</p>
+                        <div class="card-details">
+                            <strong>[결과]</strong> 미쓰비시/LS PLC 시퀀스 최적화를 통해 설비 비정상 가동 시 **0.5초 내 강제 정지(Interlock)** 구현 및 작업자 안전 100% 확보.
+                        </div>
                     </div>
                     <div class="timeline-card" data-id="pc">
-                        <div class="card-step">3단계. 심화 응용</div>
-                        <h4>PC 기반 제어</h4>
-                        <p>고정밀 센서 융합 및 설비 HMI 연동 인터페이스 구축</p>
-                        <div class="card-details">비전 시스템과 모터를 연동하여 고정밀 타겟팅을 수행하고 HMI 기반의 직관적인 사용자 조작 패널을 설계했습니다. C#과 C++을 활용한 강력한 실시간 제어 경험입니다.</div>
+                        <div class="card-step">Precision</div>
+                        <h4>PC 기반 고정밀 제어</h4>
+                        <p>비전 센서 융합 및 HMI 모니터링</p>
+                        <div class="card-details">
+                            <strong>[결과]</strong> C#/C++ 기반 HMI를 구축하여 설비 상태를 실시간 시각화하고, 비전 피드백 제어로 **반복 정밀도 [O]mm** 이내 달성.
+                        </div>
                     </div>
                 </div>
 
@@ -134,38 +178,106 @@
 
         <!-- PROJECTS SECTION (Phase 2) -->
         <section id="projects">
-            <h2 class="section-title fade-in">프로젝트 쇼케이스: <br><span>웨이퍼 이송 로봇</span></h2>
+            <h2 class="section-title fade-in">프로젝트 쇼케이스: <br><span>13 Balance (2학년 창의과제 도전)</span></h2>
             <div class="card fade-in">
                 <p class="section-desc" style="text-align: left; margin-bottom: 1.2rem; color: #d0d0d0; line-height: 1.6; font-size: 1rem;">
-                    앞서 닦아주신 <strong>선배들의 연구 자료와 시행착오</strong>를 훌륭한 나침반으로 삼아, '로보틱스팀'과 '안정수송팀'은 반도체 공장 라인의 핵심 기술인 <strong>'무진동 고정밀 웨이퍼 이송'</strong> 시스템을 한 단계 더 고도화했습니다.<br>
-                    이 프로젝트가 우리만의 성과를 넘어, 훗날 <strong>같은 길을 걸어갈 후배들이 이 이정표를 보고 자신만의 확고한 진로 방향성을 설정하는 데 든든한 기반</strong>이 되기를 바랍니다.
+                    <strong>[Ongoing Project]</strong> 1학년 <strong>'창의적 공학 설계'</strong> 과정에서 검증한 <strong>기구 제작 노하우</strong>를 바탕으로, 현재 제어 기술(PID)을 결합한 '자율주행 웨이퍼 이송 로봇(13 Balance)'을 직접 설계 및 제작 중입니다. <br>
+                    기존의 기계적 구동을 넘어, 외부 노이즈에도 수평을 유지하는 정밀 제어와 최적의 택트 타임(Tact Time)을 목표로 개발 과정을 밟아나가고 있습니다.
                 </p>
                 
                 <div class="project-grid">
+                    <!-- 1st Year Creative Project (Actual Result) -->
                     <div class="video-card">
-                        <div class="iframe-container placeholder-video">
-                            <div class="search-overlay">
-                                <i class="fa-solid fa-circle-notch fa-spin"></i>
-                                <span>자료 검색중...</span>
+                        <div class="iframe-container">
+                            <div class="video-thumbnail-link" style="cursor: pointer;" onclick="openImageModal('bg/six_legged_robot.jpg')">
+                                <img src="bg/six_legged_robot.jpg" alt="6족 보행로봇 실물" class="video-thumbnail">
+                                <div class="play-button-overlay" style="background: rgba(242, 148, 0, 0.8);">
+                                    <i class="fa-solid fa-magnifying-glass-plus"></i>
+                                </div>
                             </div>
                         </div>
                         <div class="video-info">
-                            <div class="vi-badge">로보틱스팀</div>
-                            <h4>1단계. 선배들의 유산을 이은 구동 재해석</h4>
-                            <p>기존 설계 데이터를 바탕으로 하중 및 구동 메커니즘을 새롭게 재해석했습니다. 파츠 간 간섭을 선제적으로 해결하고, 후배들이 구조적 오류를 피할 수 있도록 체계적인 설계 매뉴얼을 확립했습니다.</p>
+                            <div class="vi-badge team-b">1학년 창의과제</div>
+                            <h4>실물 구현: 6족 보행로봇</h4>
+                            <p>테오얀센 메커니즘을 실제 하드웨어로 구현한 6족 보행 로봇입니다. 1학년 과정에서 배운 SolidWorks 모델링 데이터를 바탕으로 아크릴을 정밀 가공하고, 전동 메커니즘을 조립하여 안정적인 보행 성능을 검증했습니다.</p>
+                            <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                                <div style="display: flex; align-items: center; gap: 8px; color: #eee; font-size: 0.85rem;">
+                                    <i class="fa-solid fa-check" style="color: var(--sk-orange);"></i>
+                                    <span>SolidWorks를 활용한 삼각법 도면 설계</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px; color: #eee; font-size: 0.85rem;">
+                                    <i class="fa-solid fa-check" style="color: var(--sk-orange);"></i>
+                                    <span>고속 기어 및 전동 메커니즘 최적화</span>
+                                </div>
+                            </div>
+                            <!-- Troubleshooting Structure Added -->
+                            <div class="troubleshooting-box" style="margin-top: 1.2rem; background: rgba(255,255,255,0.05); padding: 1.2rem; border-left: 3px solid var(--sk-orange); border-radius: 8px;">
+                                <h5 style="color: var(--sk-orange); margin-bottom: 0.8rem; font-size: 1rem;"><i class="fa-solid fa-wrench"></i> Troubleshooting Experience</h5>
+                                <p style="font-size: 0.88rem; color: #ddd; line-height: 1.5; background: rgba(0,0,0,0.25); padding: 12px; border-radius: 6px;">
+                                    <strong>[문제점]</strong> 실물 제작 중 모터 토크 부족으로 인한 보행 불안정 발생 <br> 
+                                    <strong>[해결책]</strong> 기어비 재설계를 통한 회전수 감소 및 토크 증대로 **보행 안정성 100%** 확보
+                                </p>
+                            </div>
+                            <div style="margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 10px;">
+                                <a href="docs/1학년_프로젝트.pdf" download class="download-link-btn" style="display: inline-flex; align-items: center; gap: 8px; color: #fff; background: rgba(225, 20, 31, 0.9); padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.85rem; text-decoration: none; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1);">
+                                    <i class="fa-solid fa-file-pdf"></i> 과제 상세 보고서 (PDF)
+                                </a>
+                                <a href="docs/캡스톤디자인_결과보고서.pdf" download class="download-link-btn" style="display: inline-flex; align-items: center; gap: 8px; color: #fff; background: rgba(242, 148, 0, 0.9); padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.85rem; text-decoration: none; transition: 0.3s; border: 1px solid rgba(255,255,255,0.1);">
+                                    <i class="fa-solid fa-file-invoice"></i> 캡스톤 결과 보고서 (PDF)
+                                </a>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- 2nd Year Target Project (Current Progress) -->
                     <div class="video-card">
-                        <div class="iframe-container placeholder-video">
-                            <div class="search-overlay">
-                                <i class="fa-solid fa-circle-notch fa-spin"></i>
-                                <span>자료 검색중...</span>
-                            </div>
+                        <div class="iframe-container">
+                            <a href="https://www.youtube.com/watch?v=OY8IksCUUro&list=PLKdsdt42xrosgOZmFr3Vo8xn_ERASU6jj&index=7" target="_blank" class="video-thumbnail-link" title="13 Balance 프로젝트 영상 보기">
+                                <div style="position: relative; width: 100%; aspect-ratio: 16/9; background: #222; overflow: hidden;">
+                                    <img src="https://img.youtube.com/vi/OY8IksCUUro/maxresdefault.jpg" alt="13 Balance 프로젝트 영상 썸네일" class="video-thumbnail" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;" onerror="this.onerror=null; this.src='https://via.placeholder.com/640x360/2a2a2a/f29400?text=Video+Thumbnail';">
+                                </div>
+                                <div class="play-button-overlay">
+                                    <i class="fa-solid fa-play"></i>
+                                </div>
+                            </a>
                         </div>
                         <div class="video-info">
-                            <div class="vi-badge team-b">안정수송팀</div>
-                            <h4>2단계. 차세대를 위한 무진동 레퍼런스 확립</h4>
-                            <p>과거의 주행 테스트 기록들을 철저히 분석해 PID 제어 게인(Gain)을 한계점까지 튜닝했습니다. 이는 후배들이 현업 OHT 장비의 요구 조건을 미리 체험하며 연구를 심화할 수 있는 강력한 레퍼런스가 될 것입니다.</p>
+                            <div class="vi-badge">2학년 진행 과제</div>
+                            <h4>13 Balance: 자율주행 웨이퍼 이송 시스템</h4>
+                            <p>
+                                <strong>Arduino Mega 2560</strong> 기반의 3단 수직 구조 웨이퍼 이송 로봇입니다. 팹(Fab) 내 좁은 통로와 장애물을 회피하며 웨이퍼를 안전하게 운송하는 <strong>Line Tracing</strong> 기술을 구현했습니다.
+                            </p>
+                            <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                                <div style="display: flex; align-items: center; gap: 8px; color: #eee; font-size: 0.85rem;">
+                                    <i class="fa-solid fa-check" style="color: var(--sk-orange);"></i>
+                                    <span>다채널 트래커 센서를 활용한 고정밀 경로 주행</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px; color: #eee; font-size: 0.85rem;">
+                                    <i class="fa-solid fa-check" style="color: var(--sk-orange);"></i>
+                                    <span>IR 센서 기반의 장애물 감지 및 Safety Interlock 구현</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px; color: #eee; font-size: 0.85rem;">
+                                    <i class="fa-solid fa-check" style="color: var(--sk-orange);"></i>
+                                    <span>L298N 드라이버를 이용한 주행부 및 핸들러 동기화 제어</span>
+                                </div>
+                            </div>
+                            <!-- Troubleshooting Goal Added -->
+                            <div class="troubleshooting-box" style="margin-top: 1.2rem; background: rgba(255,255,255,0.05); padding: 1.2rem; border-left: 3px solid var(--sk-red); border-radius: 8px;">
+                                <h5 style="color: var(--sk-red); margin-bottom: 0.8rem; font-size: 1rem;"><i class="fa-solid fa-screwdriver-wrench"></i> Technical KPI</h5>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                                    <div style="background: rgba(225, 20, 31, 0.1); padding: 12px; border-radius: 8px; border: 1px solid rgba(225, 20, 31, 0.2); text-align: center;">
+                                        <span style="display: block; font-size: 0.75rem; color: #aaa; margin-bottom: 4px;"><i class="fa-solid fa-bullseye"></i> 목표 사고율</span>
+                                        <span style="font-size: 1.1rem; color: var(--sk-red); font-weight: 800;">1% 미만</span>
+                                    </div>
+                                    <div style="background: rgba(242, 148, 0, 0.1); padding: 12px; border-radius: 8px; border: 1px solid rgba(242, 148, 0, 0.2); text-align: center;">
+                                        <span style="display: block; font-size: 0.75rem; color: #aaa; margin-bottom: 4px;"><i class="fa-solid fa-chart-line"></i> 주행 안정성</span>
+                                        <span style="font-size: 1.1rem; color: var(--sk-orange); font-weight: 800;">96% 이상 확보</span>
+                                    </div>
+                                </div>
+                                <p style="font-size: 0.88rem; color: #ddd; line-height: 1.5; background: rgba(0,0,0,0.25); padding: 12px; border-radius: 6px;">
+                                    [해결] **PID 제어 알고리즘** 최적화를 통해 고층 구조의 관성 진동 문제를 극복했습니다. 현재 실시간 모니터링 시스템을 연동하여 가동 데이터 기반의 **안정적 주행 제어**를 구현하고 있습니다.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -178,22 +290,22 @@
             
             <!-- Industry Collaboration -->
             <div class="collab-container fade-in">
-                <h3 class="credential-header">산학 협력 현황</h3>
+                <h3 class="credential-header">산학 협력 및 기술 연계 역량</h3>
                 <div class="collab-grid">
-                    <div class="collab-card">
+                    <div class="collab-card collab-doosan">
                         <div class="collab-logo">Doosan</div>
                         <h4>두산로보틱스</h4>
-                        <p>협동로봇 매니퓰레이터 6축 제어 및 응용 실무 교류</p>
+                        <p><strong style="color:var(--sk-orange);">[AMHS 무인화]</strong> **로봇기구학** 및 **3차원 CAD** 전공 역량을 기반으로 협동로봇(Cobot)을 활용한 클린룸 내 자동물류이송 및 보수 보조 실습 수행. 하드웨어 메커니즘 분석을 통한 설비 가동률 최적화 기여.</p>
                     </div>
-                    <div class="collab-card">
+                    <div class="collab-card collab-mitsubishi">
                         <div class="collab-logo">Mitsubishi</div>
                         <h4>한국미쓰비시전기</h4>
-                        <p>현장형 PLC 실무 및 산업용 통신 제어망 최적화 실습</p>
+                        <p><strong style="color:var(--sk-orange);">[설비 통합 제어]</strong> **PLC 프로그래밍** 및 **자동화통신** 교과를 통해 습득한 지식을 바탕으로 **e-F@ctory** 환경에서의 데이터 수집 및 실시간 모니터링 HMI 설계 역량 확보.</p>
                     </div>
-                    <div class="collab-card">
+                    <div class="collab-card collab-nineplus">
                         <div class="collab-logo">Nineplus IT</div>
                         <h4>나인플러스 IT</h4>
-                        <p>반도체 Layout 설계 및 EDA 툴을 활용한 회로 시각화</p>
+                        <p><strong style="color:var(--sk-orange);">[HBM 패키징 설계]</strong> **전자회로** 및 **반도체공정기초** 지식을 EDA(Cadence) 실무에 접목하여 SK하이닉스 **HBM** 패키징 공정에 필수적인 고속 신호 분석 및 레이아웃 설계 역량 증명.</p>
                     </div>
                 </div>
             </div>
@@ -222,52 +334,16 @@
         <section id="vision">
             <h2 class="section-title fade-in">커리어 서사: <br><span>SK하이닉스와의 궤적</span></h2>
             
-            <div class="card fade-in" style="margin-bottom: 3rem;">
-                <h3>준비된 반도체 설비 전문가로서의 서사</h3>
+            <div class="card fade-in" style="margin-bottom: 2rem; border-top: 4px solid var(--sk-red);">
+                <h3 style="color: var(--sk-red); margin-bottom: 1.5rem;"><i class="fa-solid fa-gear"></i> VWBE와 SUPEX 정신으로 라인의 다운타임을 제로화하겠습니다</h3>
                 <p class="narrative-text">
-                    동양미래대학교에서의 심도 있는 현장 실습과 산업체 멘토링, 그리고 여러 차례의 <strong>반도체산업전(SEDEX) 참가</strong>는 저에게 '장비의 일시적 정지가 곧 글로벌 경쟁력의 손실'이라는 현장의 무거운 책임감을 일깨워주었습니다.<br><br>
-                    <strong>"현장 실무 능력이 곧 가치 창출의 시작이다"</strong>라는 사업단의 핵심 인사말을 제 성장의 원동력으로 삼아왔습니다. 수백 번의 로봇 코딩 수정과 PLC 에러 디버깅을 겪으며 배양된 집요함은, 앞으로 SK하이닉스의 첨단 장비 앞에서 마주할 무망한 이슈들을 끝까지 파고들어 해결해 내는 강인한 엔지니어의 근성으로 발현될 것입니다.
+                    동양미래대학교에서의 심도 있는 현장 실습과 <strong>반도체 부트캠프</strong>를 통해 '장비의 일시적 정지가 곧 글로벌 경쟁력의 손실'이라는 현장의 무게감을 배웠습니다.<br><br>
+                    저는 단순히 고장 난 장비를 수리하는 것을 넘어, 데이터 기반의 <strong>'예방 보전'</strong>을 통해 잠재적 결함을 사전에 차단하겠습니다. SK하이닉스의 M15/M16 라인에서 <strong>"확실하게 믿고 맡길 수 있는"</strong> 전문성을 증명하겠습니다.
                 </p>
-            </div>
-        </section>
-
-        <!-- ROADMAP SECTION -->
-        <section id="roadmap">
-            <h2 class="section-title fade-in">SK하이닉스 로드맵: <br><span>미래 성장 계획</span></h2>
-
-            <!-- Professional Roadmap table -->
-            <div class="card fade-in" style="margin-bottom: 2rem;">
-                <h3>대학교 3개년 학사 로드맵</h3>
-                <table class="roadmap-table">
-                    <thead>
-                        <tr>
-                            <th>학년</th>
-                            <th>학습 목표</th>
-                            <th>핵심 활동</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1학년: 전공 기초</td>
-                            <td>엔지니어링 사고 및 도구 숙달</td>
-                            <td>3차원 CAD, 전기/전자회로 기초, 파이썬 프로그래밍 입문 및 데이터 처리 기초</td>
-                        </tr>
-                        <tr>
-                            <td>2학년: 전공 실무</td>
-                            <td>자동화 시스템 및 장비 제어 역량</td>
-                            <td>PLC 프로그래밍, 마이크로컨트롤러 제어, ROS 기초 및 산업용 통신망 실습</td>
-                        </tr>
-                        <tr>
-                            <td>3학년: 실무 심화</td>
-                            <td>현장 중심 인재 및 기술 융합</td>
-                            <td>학년별 캡스톤 디자인, 반도체 부트캠프 연계 실습, 전공분야 현장실습 및 실무 프로젝트</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
 
             <div class="vision-card fade-in">
-                <h2>"로봇 제어의 정밀함과 반도체 공정 지식을 융합하여, <br>SK하이닉스의 무결점 수율(Yield) 혁신을 이끌겠습니다."</h2>
+                <h2>"로봇 제어의 정밀함과 반도체 공정 지식을 융합하여, <br>돌발적인 다운타임에도 유연하게 대처하는 SK하이닉스의 현장 중심 엔지니어가 되겠습니다."</h2>
             </div>
         </section>
 
@@ -289,34 +365,21 @@
                     </div>
                     <div class="academic-arrow">➔</div>
                     <div class="academic-col" style="flex: 2;">
-                        <h4>전공실무</h4>
+                        <h4>전공실무 (메인터넌스 핵심 역량)</h4>
                         <div class="tag-group">
+                            <span class="tag highlight">PLC프로그래밍</span>
+                            <span class="tag highlight">마이크로컨트롤러</span>
+                            <span class="tag highlight">로봇기초제어</span>
+                            <span class="tag highlight">로봇기구학</span>
+                            <span class="tag highlight">반도체공정기초</span>
                             <span class="tag">기계제도</span>
-                            <span class="tag">로봇공학기초</span>
                             <span class="tag">CAD기초</span>
                             <span class="tag">전기회로</span>
                             <span class="tag">전자회로</span>
                             <span class="tag">디지털논리회로</span>
                             <span class="tag">파이썬프로그래밍</span>
-                            <span class="tag">인공지능개론</span>
-                            <span class="tag">마이크로컨트롤러</span>
-                            <span class="tag">PLC프로그래밍</span>
-                            <span class="tag">로봇오퍼레이션</span>
-                            <span class="tag">아두이노프로그래밍</span>
-                            <span class="tag">윈도우프로그래밍</span>
-                            <span class="tag">웹프로그래밍</span>
-                            <span class="tag">ROS프로그래밍기초</span>
-                            <span class="tag">PLC제어</span>
-                            <span class="tag">PC기반제어</span>
-                            <span class="tag">인공지능응용</span>
-                            <span class="tag">펌웨어프로그래밍</span>
-                            <span class="tag">모바일앱프로그래밍</span>
-                            <span class="tag">자동화통신</span>
-                            <span class="tag">CAD 응용</span>
-                            <span class="tag">ROS프로그래밍응용</span>
-                            <span class="tag">로봇공학응용</span>
-                            <span class="tag">로봇센서</span>
                             <span class="tag">모터제어</span>
+                            <span class="tag">자동화통신</span>
                         </div>
                     </div>
                     <div class="academic-arrow">➔</div>
@@ -324,24 +387,44 @@
                         <h4>실무 및 분야</h4>
                         <div class="tag-group">
                             <span class="tag accent">학년별 캡스톤 디자인</span>
-                            <span class="tag accent">현장실습</span>
-                            <span class="tag accent">취업 및 창업실무</span>
-                            <span class="tag highlight">로봇 소프트웨어 전공</span>
+                            <span class="tag accent">반도체 장비 트러블슈팅 실습</span>
+                            <span class="tag highlight">SK하이닉스 예비 엔지니어</span>
                         </div>
                     </div>
                 </div>
             </div>
             </div>
         </section>
+
+        <!-- Image Detail Modal -->
+        <div id="image-modal" class="modal" onclick="closeImageModal()">
+            <span class="close-btn" onclick="closeImageModal()">&times;</span>
+            <img class="modal-content" id="modal-img">
+        </div>
     </main>
 
     <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <i class="fa-solid fa-graduation-cap"></i> 동양미래대학교 <br> 
-                로봇자동화공학부 & 로봇소프트웨어과
+        <div class="footer-content" style="text-align: center; padding: 3rem 0;">
+            <div class="footer-logo" style="font-size: 1.5rem; margin-bottom: 1rem;">
+                <i class="fa-solid fa-microchip"></i> SK Hynix Maintenance Engineer Candidate
             </div>
-            <p>© 동양미래대학교 로봇자동화공학부 로봇소프트웨어과 신광철의 포트폴리오 증명하기 위해 제작되었습니다.</p>
+            <p>© 2025 신광철 Portfolio. 본 포트폴리오는 SK하이닉스 유지보수 직무 역량을 증명하기 위해 제작되었습니다.</p>
+            
+            <div class="official-links">
+                <a href="https://www.dongyang.ac.kr/dmu/4495/subview.do" target="_blank" class="official-link-item">
+                    <i class="fa-solid fa-building-columns"></i> 동양미래대학교 공식 홈페이지
+                </a>
+                <a href="https://cafe.naver.com/dongyangmirae" target="_blank" class="official-link-item">
+                    <i class="fa-solid fa-blog"></i> 공식 네이버 카페
+                </a>
+                <a href="https://www.youtube.com/@auto2con" target="_blank" class="official-link-item">
+                    <i class="fa-brands fa-youtube"></i> 로봇소프트웨어과 유튜브
+                </a>
+            </div>
+
+            <div style="margin-top: 25px;">
+                <a href="mailto:sgcggyee@gmail.com" style="color: var(--sk-orange); text-decoration: none;"><i class="fa-solid fa-envelope"></i> sgcggyee@gmail.com</a>
+            </div>
         </div>
     </footer>
 

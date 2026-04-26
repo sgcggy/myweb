@@ -1,8 +1,27 @@
-// --- 게시판 독립 페이지 로직 ---
+// --- Firebase Config 및 초기화 ---
+const firebaseConfig = {
+  apiKey: "AIzaSyAwbYGmJxOSQ5Hk76SEVmWngK7dL3HUxzI",
+  authDomain: "ppt-e24a8.firebaseapp.com",
+  projectId: "ppt-e24a8",
+  storageBucket: "ppt-e24a8.firebasestorage.app",
+  messagingSenderId: "448447445954",
+  appId: "1:448447445954:web:1794a0e48edd4a2af5745b",
+  measurementId: "G-7Z9VQG3J4S"
+};
+
+// Firebase 초기화
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const boardCol = db.collection('boardPosts');
+
+let currentPostId = null;
+let allPosts = [];
+
+// --- 게시판 로직 ---
 
 document.addEventListener("DOMContentLoaded", () => {
-    // 초기 게시판 렌더링
-    renderPosts();
+    // 실시간 게시판 리스너 연결
+    listenToPosts();
 
     // 게시판 폼 제출 핸들러
     const boardForm = document.getElementById("board-form");
@@ -11,11 +30,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-let currentPostId = null;
+// 실시간 데이터 수신 및 렌더링
+function listenToPosts() {
+    boardCol.orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
+        allPosts = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+        renderPosts(allPosts);
+    }, (error) => {
+        console.error("Firebase Error:", error);
+        alert("데이터를 불러오는 중 오류가 발생했습니다. Firestore 규칙을 확인해주세요.");
+    });
+}
 
 // 게시글 목록 렌더링
-function renderPosts() {
-    const posts = JSON.parse(localStorage.getItem('boardPosts') || '[]');
+function renderPosts(posts) {
     const boardBody = document.getElementById('board-body');
     if (!boardBody) return;
 
@@ -26,8 +56,7 @@ function renderPosts() {
         return;
     }
 
-    // 최신글이 위로 오도록 역순 정렬
-    posts.slice().reverse().forEach((post, index) => {
+    posts.forEach((post, index) => {
         const tr = document.createElement('tr');
         tr.onclick = () => readPost(post.id);
         tr.innerHTML = `
@@ -40,16 +69,14 @@ function renderPosts() {
     });
 }
 
-// 뷰 전환: 목록 보기
+// 뷰 전환 함수들
 function showBoardList() {
     document.getElementById('board-list-view').style.display = 'block';
     document.getElementById('board-write-view').style.display = 'none';
     document.getElementById('board-read-view').style.display = 'none';
     window.scrollTo(0, 0);
-    renderPosts();
 }
 
-// 뷰 전환: 작성/수정 하기
 function showBoardWrite(isEdit = false) {
     document.getElementById('board-list-view').style.display = 'none';
     document.getElementById('board-write-view').style.display = 'block';
@@ -70,10 +97,8 @@ function showBoardWrite(isEdit = false) {
     }
 }
 
-// 뷰 전환: 상세 보기
 function readPost(id) {
-    const posts = JSON.parse(localStorage.getItem('boardPosts') || '[]');
-    const post = posts.find(p => p.id === id);
+    const post = allPosts.find(p => p.id === id);
     if (!post) return;
 
     currentPostId = id;
@@ -88,8 +113,8 @@ function readPost(id) {
     window.scrollTo(0, 0);
 }
 
-// 게시글 저장 (생성 및 수정)
-function savePost(e) {
+// 게시글 저장 (Firebase 연동)
+async function savePost(e) {
     e.preventDefault();
     const id = document.getElementById('edit-id').value;
     const author = document.getElementById('board-author').value;
@@ -98,33 +123,38 @@ function savePost(e) {
     const content = document.getElementById('board-content').value;
     const date = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
-    let posts = JSON.parse(localStorage.getItem('boardPosts') || '[]');
-
-    if (id) {
-        // 수정
-        posts = posts.map(p => p.id == id ? { ...p, author, title, content, date: date + ' (수정됨)' } : p);
-    } else {
-        // 신규
-        const newPost = {
-            id: Date.now(),
-            author,
-            title,
-            password,
-            content,
-            date
-        };
-        posts.push(newPost);
+    try {
+        if (id) {
+            // 수정
+            await boardCol.doc(id).update({
+                author,
+                title,
+                content,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                date: date + ' (수정됨)'
+            });
+        } else {
+            // 신규 작성
+            await boardCol.add({
+                author,
+                title,
+                password,
+                content,
+                date,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        }
+        alert('저장되었습니다.');
+        showBoardList();
+    } catch (error) {
+        console.error("Save Error:", error);
+        alert('저장에 실패했습니다. 관리자에게 문의하세요.');
     }
-
-    localStorage.setItem('boardPosts', JSON.stringify(posts));
-    alert('저장되었습니다.');
-    showBoardList();
 }
 
 // 수정 모드 진입
 function editPost() {
-    const posts = JSON.parse(localStorage.getItem('boardPosts') || '[]');
-    const post = posts.find(p => p.id === currentPostId);
+    const post = allPosts.find(p => p.id === currentPostId);
     if (!post) return;
 
     const inputPw = prompt('게시글 비밀번호를 입력해주세요:');
@@ -143,9 +173,8 @@ function editPost() {
 }
 
 // 게시글 삭제
-function deletePost() {
-    const postsAll = JSON.parse(localStorage.getItem('boardPosts') || '[]');
-    const post = postsAll.find(p => p.id === currentPostId);
+async function deletePost() {
+    const post = allPosts.find(p => p.id === currentPostId);
     if (!post) return;
 
     const inputPw = prompt('게시글 비밀번호를 입력해주세요:');
@@ -156,9 +185,19 @@ function deletePost() {
 
     if (!confirm('정말로 이 글을 삭제하시겠습니까?')) return;
 
-    let posts = postsAll.filter(p => p.id !== currentPostId);
-    localStorage.setItem('boardPosts', JSON.stringify(posts));
-
-    alert('삭제되었습니다.');
-    showBoardList();
+    try {
+        await boardCol.doc(currentPostId).delete();
+        alert('삭제되었습니다.');
+        showBoardList();
+    } catch (error) {
+        console.error("Delete Error:", error);
+        alert('삭제에 실패했습니다.');
+    }
 }
+
+// 전역 함수 등록 (onclick 핸들러 대응)
+window.showBoardWrite = showBoardWrite;
+window.showBoardList = showBoardList;
+window.readPost = readPost;
+window.editPost = editPost;
+window.deletePost = deletePost;

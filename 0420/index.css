@@ -99,6 +99,61 @@ nav {
     color: var(--sk-red);
 }
 
+.nav-board-btn {
+    background: var(--sk-gradient);
+    padding: 0.5rem 1rem !important;
+    border-radius: 8px;
+    color: #fff !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(225, 20, 31, 0.3);
+    transition: 0.3s;
+}
+
+.nav-board-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(225, 20, 31, 0.5);
+    color: #fff !important;
+}
+
+/* Quick Stats */
+.quick-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: 900;
+    font-family: 'Outfit', sans-serif;
+    color: var(--sk-orange);
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .quick-stats { gap: 1rem; flex-wrap: wrap; }
+}
+
 /* 섹션 공통 스타일 */
 section {
     min-height: 100vh;
@@ -160,6 +215,108 @@ section {
     font-size: 1.5rem;
 }
 
+/* -------------------------------
+   소개 섹션 (Mission & Value)
+---------------------------------*/
+#introduction {
+    background: radial-gradient(circle at 50% 50%, rgba(225, 20, 31, 0.05) 0%, transparent 70%);
+}
+
+.intro-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.intro-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.intro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.intro-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    padding: 2.5rem;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.intro-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--sk-red);
+    background: rgba(225, 20, 31, 0.05);
+    box-shadow: 0 20px 40px rgba(225, 20, 31, 0.1);
+}
+
+.intro-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--sk-gradient);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.intro-card:hover::before {
+    opacity: 1;
+}
+
+.intro-icon {
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--sk-red);
+    margin-bottom: 2rem;
+    transition: 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.intro-card:hover .intro-icon {
+    background: var(--sk-gradient);
+    color: #fff;
+    transform: rotateY(360deg);
+    box-shadow: 0 0 20px rgba(225, 20, 31, 0.4);
+}
+
+.intro-content h4 {
+    font-size: 1.4rem;
+    color: var(--sk-orange);
+    margin-bottom: 1rem;
+    font-weight: 800;
+}
+
+.intro-content p {
+    font-size: 0.95rem;
+    color: #ccc;
+    line-height: 1.8;
+}
+
+.intro-content strong {
+    color: #fff;
+    border-bottom: 1px solid var(--sk-red);
+}
+
 /* 성장 과정 섹션 스타일 */
 .growth-header {
     display: flex;
@@ -185,7 +342,7 @@ section {
     font-family: inherit;
     white-space: nowrap;
 }
-.growth-btn:hover {
+.growth-btn:hover, .growth-btn.active {
     background: var(--sk-gradient);
     border-color: transparent;
     transform: translateY(-3px);
@@ -211,17 +368,18 @@ section {
 }
 
 #growth-main-img, .growth-detail-img {
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .growth-img-wrapper {
     position: relative;
     width: 100%;
-    height: 550px; /* 고정 높이 설정으로 잘림 방지 */
+    min-height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 20px;
+    overflow: hidden;
 }
 .growth-img-wrapper img {
     position: absolute;
@@ -229,20 +387,12 @@ section {
     max-height: 100%;
     width: auto;
     height: auto;
-    object-fit: contain; /* 이미지가 상자 안에서 잘리지 않고 전체가 다 보이도록 설정 */
+    object-fit: contain;
     border-radius: 15px;
     border: 1px solid var(--border-color);
 }
-.growth-detail-img {
-    z-index: 5;
-}
-#growth-main-img {
-    z-index: 4;
-}
 .fade-hide {
     opacity: 0 !important;
-    visibility: hidden;
-    transform: scale(0.95);
 }
 
 @media (max-width: 768px) {
@@ -629,6 +779,41 @@ section {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(225, 20, 31, 0.2);
 }
+.timeline-card.hero-content {
+    max-width: 900px;
+    z-index: 2;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.hero-label {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 8px 24px;
+    border-radius: 50px;
+    color: var(--sk-red);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.hero-content h1 {
+    font-size: 4.5rem;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    font-weight: 900;
+}
+
+.hero-desc {
+    font-size: 1.4rem;
+    color: #eee;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    word-break: keep-all;
+}
 .timeline-card.highlight {
     border: 1px solid rgba(242, 148, 0, 0.4);
 }
@@ -684,6 +869,31 @@ section {
     max-width: 600px;
     position: relative;
     box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+}
+
+/* Image Modal Specific */
+#image-modal {
+    background-color: rgba(0, 0, 0, 0.95);
+}
+#image-modal .modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border: none;
+    background: none;
+    padding: 0;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+}
+#image-modal .close-btn {
+    top: 30px;
+    right: 40px;
+    font-size: 50px;
+    z-index: 2001;
+}
+.growth-img-wrapper img {
+    cursor: zoom-in;
 }
 .close-btn {
     position: absolute; top: 15px; right: 25px;
@@ -772,6 +982,9 @@ section {
     border-radius: 15px;
     overflow: hidden;
     transition: 0.4s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 .video-card:hover { border-color: var(--sk-orange); transform: translateY(-5px); }
 .iframe-container {
@@ -781,6 +994,46 @@ section {
 }
 .iframe-container iframe {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+}
+.video-thumbnail-link {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.video-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.video-thumbnail-link:hover .video-thumbnail {
+    transform: scale(1.05);
+}
+.play-button-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(225, 20, 31, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.2rem;
+    transition: 0.3s;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+.video-thumbnail-link:hover .play-button-overlay {
+    background: var(--sk-red);
+    transform: translate(-50%, -50%) scale(1.1);
 }
 .placeholder-video {
     background: #111;
@@ -804,10 +1057,18 @@ section {
 .video-info {
     padding: 1.2rem 1.5rem;
     position: relative;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 .video-info p {
     font-size: 0.95rem;
     line-height: 1.5;
+}
+.download-link-btn:hover {
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 .vi-badge {
     position: absolute;
@@ -844,12 +1105,42 @@ section {
 .collab-card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
-    padding: 2rem;
-    border-radius: 15px;
+    padding: 2.5rem 2rem;
+    border-radius: 20px;
     text-align: center;
     transition: 0.4s;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
-.collab-card:hover { border-color: #fff; background: rgba(255,255,255,0.05); }
+
+.collab-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 10, 10, 0.82);
+    z-index: -1;
+    transition: 0.3s;
+}
+
+.collab-card:hover::before {
+    background: rgba(10, 10, 10, 0.65);
+}
+
+.collab-card:hover { 
+    border-color: var(--sk-orange); 
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+
+.collab-doosan { background-image: url('bg/collab_doosan_bg.png'); }
+.collab-mitsubishi { background-image: url('bg/plc.png'); }
+.collab-nineplus { background-image: url('bg/logic_bg.png'); }
 .collab-logo {
     display: inline-block;
     padding: 0.5rem 1rem;
@@ -1124,6 +1415,39 @@ footer {
 footer p {
     color: var(--text-secondary);
     font-size: 0.9rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.official-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+.official-link-item {
+    color: #888;
+    text-decoration: none;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+    padding: 0.6rem 1.2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.official-link-item:hover {
+    color: var(--sk-orange);
+    background: rgba(242, 148, 0, 0.1);
+    border-color: var(--sk-orange);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(242, 148, 0, 0.1);
+}
+.official-link-item i {
+    font-size: 1rem;
 }
 
 /* 마이크로 애니메이션 */
